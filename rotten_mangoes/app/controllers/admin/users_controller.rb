@@ -1,16 +1,9 @@
-class Admin::UserController < ApplicationController
+class Admin::UsersController < ApplicationController
 
-  before_filter :admin?
-
-  def admin?
-    return if current_session(:admin_user_id)
-    unless current_user && current_user.admin
-      redirect_to movies_path
-    end
-  end  
+  before_action :admin_only
 
   def index
-    @users = User.all.page(params[:page])
+    @users = User.all.page(params[:page]).per(10)
   end
 
   def new
@@ -45,13 +38,27 @@ class Admin::UserController < ApplicationController
     end 
   end   
 
-    def destory
-      @user = User.find(params[:id])
-      @user.destory
-      redirect_to admin_users_path, notice: "#{@user.firstname + @user.lastname} has been deleted"
-    end  
-  
+  def destory
+    @user = User.find(params[:id])
+    @user.destory
+    redirect_to admin_users_path, notice: "#{@user.firstname + @user.lastname} has been deleted"
   end  
 
+  private
 
-end
+  def admin_only
+  unless current_user.admin
+    flash[:alert] = "Admin only"
+    redirect_to root_path
+    end
+  end
+  
+end  
+
+
+# def admin?
+  #   return if current_session(:admin_user_id)
+  #   unless current_user && current_user.admin
+  #     redirect_to movies_path
+  #   end
+  # end  
