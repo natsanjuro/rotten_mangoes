@@ -52,6 +52,12 @@ class Admin::UsersController < ApplicationController
     redirect_to root_path
     end
   end
+
+   protected
+
+  def user_params
+    params.require(:user).permit(:email, :firstname, :lastname, :password, :password_confirmation)
+  end  
   
 end  
 

@@ -1,7 +1,13 @@
   class MoviesController < ApplicationController
 
   def index
-    @movies = Movie.all
+    unless params[:search].blank?
+      @movies = Movie.search(params[:search])
+    else
+      @movies = Movie.all
+    end
+    @movies = @movies.where("runtime_in_minutes <= ?", params[:run_time].to_i) unless params[:run_time].blank?
+    @movies = @movies.order("release_date ASC")
   end
 
   def show
@@ -42,6 +48,7 @@
     redirect_to movies_path
   end
 
+
   protected
 
   def movie_params
@@ -51,3 +58,5 @@
   end
   
 end
+
+
