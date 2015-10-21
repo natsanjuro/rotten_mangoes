@@ -1,0 +1,23 @@
+<h2>All Users:</h2><br/>
+<%= link_to 'Back to movies', root_path %><br/>
+<%= link_to 'Create a new user', new_admin_user_path %><br/>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Admin</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <%= paginate @users %>
+<% @users.each do |user| %>
+
+    <h3><%= user.full_name %> | <%= user.email %>
+    <% if user.admin? %>
+      * Administrator
+    <% else %>
+      * Regular User
+    <% end %>
+     * <%= link_to "see user details", admin_user_path(user) %>
+    </h3>
+  <% end %>
