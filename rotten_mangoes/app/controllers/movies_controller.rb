@@ -10,6 +10,28 @@
     @movies = @movies.order("release_date ASC")
   end
 
+  # def index
+  #   unless params[:search].blank?
+  #     @movies = Movie.search(params[:search])
+  #   else
+  #     @movies = Movie.all
+  #   end
+  #   @movies = @movies.run_time(params[:run_time]) unless params[:run_time].blank?
+  #   @movies = @movies.order("release_date ASC")
+  # end
+
+
+  # def index
+  #   if params[:search].blank?
+  #     @movies = Movie.search(params[:search])
+  #   elsif params[:run_time].blank?
+  #   @movies = @movies.run_time.to_i
+  #   @movies = @movies.order("release_date ASC")
+  #   else
+  #     @movies = Movie.all
+  #   end
+  # end 
+
   def show
     @movie = Movie.find(params[:id])
   end

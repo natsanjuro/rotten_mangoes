@@ -30,12 +30,10 @@ class Movie < ActiveRecord::Base
   end
 
   def self.search(search_text)
-    # where(:title, query) -> This would return an exact match of the query
     where("title LIKE ? OR director LIKE ?", "%#{search_text}%", "%#{search_text}%") 
   end
 
   def self.run_time(minutes)
-    # where(:title, query) -> This would return an exact match of the query
     where("runtime_in_minutes <= ?", "%#{minutes}%").to_i
   end
 
